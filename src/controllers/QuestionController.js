@@ -15,10 +15,13 @@ module.exports = {
             }else if(action == 'check') {
                 await db.run(`UPDATE questions SET read = 1 WHERE id = ${questionId}`)
             }
-        } 
+
+            res.redirect(`/room/${roomId}`)
+        }  else {
+            res.render('passIncorrect', {roomId: roomId})
+        }
 
 
-        res.redirect(`/room/${roomId}`)
     },
 
     async create(req, res) {
@@ -32,7 +35,7 @@ module.exports = {
             read
         )VALUES(
             "${question}",
-            "${roomId}",
+            ${roomId},
             0
         )`)
 
